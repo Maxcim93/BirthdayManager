@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script >
+        function sendJSON(url,object){
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST",url, true);
+            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            xhr.send(object);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log('responseText:' + xhr.responseText);
+                    history.go(-1);
+                }
+            };
+        }
+
+        function sendUser(){
+            var jsonUser = JSON.stringify({
+                name: document.getElementById("name").value,
+                number: document.getElementById("number").value,
+                email: document.getElementById("email").value});
+            sendJSON("/users",jsonUser);
+        }
+    </script>
+</head>
+<body>
+<div class="center">
+    <div class="form">
+        <div>
+            <label for="name">Имя</label>
+            <input type="text" name="name" id="name"/>
+        </div>
+        <div>
+            <label for="number">Телефон</label>
+            <input type="text" name="number" id="number"/>
+        </div>
+        <div>
+            <label for="email">E-mail</label>
+            <input type="text" name="email" id="email"/>
+        </div>
+        <div>
+            <input type="button" value="Создать" onclick="sendUser()">
+        </div>
+    </div>
+</div>
+</body>
+</html>
