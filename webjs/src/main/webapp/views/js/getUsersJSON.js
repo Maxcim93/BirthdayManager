@@ -36,7 +36,7 @@ ajax_get('/users', function(data) {
             "<td>"+data[i].name+"</td>"+
             "<td>"+data[i].number+"</td>"+
             "<td>"+data[i].email+"</td>"+
-            "<td>"+"</td>"+
+            "<td>"+"<a href=\"views/view_friends.html?id="+data[i].id+"\"> Друзья пользователя</a>"+"</td>"+
             "</tr>"
         }
     html+="</table>";

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/getUsersJSON.js"></script>>
+</head>
+<body>
+    <div id="friends"></div>
+    <script type="text/javascript">
+        var parameterId=location.href.split("?")[1];
+        var urlGetFriendsJSONServlet="/user/friends?"+parameterId;
+        ajax_get(urlGetFriendsJSONServlet, function(data) {
+            if(data==null){
+                document.getElementById("Friends").innerHTML = "<p>Friends don't existed</p>";
+                return;
+            }
+            var html= "<table>";
+                html+="<tr>";
+                    html+="<th>ID</th>";
+                    html+="<th>Имя</th>";
+                    html+="<th>Дата рождения</th>";
+                    html+="<th>Предпочтения</th>";
+                    html+="<th></th>";
+                html+="</tr>";
+                var size = data.length;
+                for (var i=0;i!=size;++i) {
+                    html += "<tr>"+
+                    "<td>"+data[i].id+"</td>"+
+                    "<td>"+data[i].name+"</td>"+
+                    "<td>"+data[i].birthday+"</td>"+
+                    "<td>"+data[i].interests+"</td>"+
+                    "<td>"+"<a href="">Удалить</a>"+"</td>"+
+                    "</tr>"
+                }
+            html+="</table>";
+            document.getElementById("friends").innerHTML=html;
+        });
+    </script>
+</body>
+</html>

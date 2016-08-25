@@ -8,17 +8,21 @@ import java.util.Random;
  * Created by Максим on 24.08.2016.
  */
 public class Friend {
+    private int id;
     private String name;
-    private Date date;
+    private Date birthday;
     private String interests;
 
-    public Friend(String name,Date date,String interests){
+    private static int countFriends=0;
+
+    public Friend(String name,Date birthday,String interests){
         this.name=name;
-        this.date= date;
+        this.birthday= birthday;
         this.interests=interests;
+        this.id=countFriends++;
     }
 
     public String getName(){return name;}
-    public Date getDate(){return date;}
+    public Date getBirthday(){return birthday;}
     public String getInterests(){return interests;}
 }

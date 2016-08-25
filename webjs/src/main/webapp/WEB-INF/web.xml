@@ -14,9 +14,19 @@
     <servlet-class>com.maxim.webjs.servlets.ViewUsersServlets</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>ViewFriendsServlet</servlet-name>
+    <servlet-class>com.maxim.webjs.servlets.ViewFriendsServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>ViewUsersServlets</servlet-name>
     <url-pattern>/users</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ViewFriendsServlets</servlet-name>
+    <url-pattern>/user/friends</url-pattern>
   </servlet-mapping>
 
 </web-app>
