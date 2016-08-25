@@ -16,7 +16,7 @@ import com.maxim.webjs.storage.UsersCache;
 /**
  * Created by Максим on 24.08.2016.
  */
-public class ViewUsersServlets extends HttpServlet {
+public class ViewUsersServlet extends HttpServlet {
     private static UsersCache USER_CACHE =UsersCache.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

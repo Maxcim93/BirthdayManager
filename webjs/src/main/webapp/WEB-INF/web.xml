@@ -10,8 +10,8 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
-    <servlet-name>ViewUsersServlets</servlet-name>
-    <servlet-class>com.maxim.webjs.servlets.ViewUsersServlets</servlet-class>
+    <servlet-name>ViewUsersServlet</servlet-name>
+    <servlet-class>com.maxim.webjs.servlets.ViewUsersServlet</servlet-class>
   </servlet>
 
   <servlet>
@@ -19,14 +19,17 @@
     <servlet-class>com.maxim.webjs.servlets.ViewFriendsServlet</servlet-class>
   </servlet>
 
+
   <servlet-mapping>
-    <servlet-name>ViewUsersServlets</servlet-name>
+    <servlet-name>ViewUsersServlet</servlet-name>
     <url-pattern>/users</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>ViewFriendsServlets</servlet-name>
+    <servlet-name>ViewFriendsServlet</servlet-name>
     <url-pattern>/user/friends</url-pattern>
   </servlet-mapping>
+
+
 
 </web-app>
