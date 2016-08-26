@@ -5,6 +5,7 @@ import com.maxim.manager.User;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.ListIterator;
 
 /**
@@ -27,12 +28,14 @@ public class UsersCache{
         INSTANCE.users.add(user);
     }
 
-    public boolean delete(final int id) {
-        for(User user:INSTANCE.users)
-            if(user.getId()==id) {
-                INSTANCE.users.remove(user);
+    public boolean delete(final int idUser) {
+        Iterator<User> iterator=users.iterator();
+        while(iterator.hasNext()){
+            if(iterator.next().getId()==idUser) {
+                iterator.remove();
                 return true;
             }
+        }
         return false;
     }
 
