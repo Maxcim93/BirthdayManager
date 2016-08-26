@@ -25,12 +25,13 @@ public class UsersCache{
         INSTANCE.users.add(user);
     }
 
-    public void delete(final int id) {
+    public int delete(final int id) {
         for(User user:INSTANCE.users)
             if(user.getId()==id) {
                 INSTANCE.users.remove(user);
-                return;
+                return 1;
             }
+        return -1;
     }
 
     public User get(final int id) {

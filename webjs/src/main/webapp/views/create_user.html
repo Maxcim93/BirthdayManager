@@ -3,28 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script >
-        function sendJSON(url,object){
-            var xhr = new XMLHttpRequest();
-
-            xhr.open("POST",url, true);
-            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-            xhr.send(object);
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    console.log('responseText:' + xhr.responseText);
-                    history.go(-1);
-                }
-            };
-        }
-
+    <script type="text/javascript" src="js/postJSON.js"></script>
+    <script type="text/javascript">
         function sendUser(){
             var jsonUser = JSON.stringify({
                 name: document.getElementById("name").value,
                 number: document.getElementById("number").value,
                 email: document.getElementById("email").value});
-            sendJSON("/users",jsonUser);
+            sendJSON("/users?type=0",jsonUser);
         }
     </script>
 </head>

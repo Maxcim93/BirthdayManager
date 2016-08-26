@@ -1,11 +1,42 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <script type="text/javascript" src="views/js/getJSON.js"></script>
     </head>
     <body>
         <label>Users</label>
         <div id="users"></div>
-        <script src="views/js/getUsersJSON.js"></script>
+        <script type="text/javascript">
+            ajax_get('/users', function(data) {
+                if(data.length<=0){
+                    document.getElementById("users").innerHTML = "<p>Users don't existed</p>";
+                    return;
+                }
+                var html= "<table  border=\"1\">";
+                    html+="<tr>";
+                        html+="<th>ID</th>";
+                        html+="<th>Имя</th>";
+                        html+="<th>Номер</th>";
+                        html+="<th>Логин</th>";
+                        html+="<th>Друзья</th>";
+                        html+="<th>Операции</th>";
+                    html+="</tr>";
+                    var size = data.length;
+                    for (var i=0;i!=size;++i) {
+                        html += "<tr>"+
+                        "<td>"+data[i].id+"</td>"+
+                        "<td>"+data[i].name+"</td>"+
+                        "<td>"+data[i].number+"</td>"+
+                        "<td>"+data[i].email+"</td>"+
+                        "<td>"+"<a href=\"views/view_friends.html?id="+data[i].id+"\"> Друзья пользователя</a>"+"</td>"+
+                        "<td>"+"<input href=\"/users?"+"type=1&"+"id="+data[i].id+"\">Удалить</a>"+"</td>"+
+                        "<td>"+"<a href=\"/users?"+"type=1&"+"id="+data[i].id+"\">Удалить</a>"+"</td>"+
+                        "</tr>"
+                    }
+                html+="</table>";
+                document.getElementById("users").innerHTML=html;
+            });
+        </script>
         <a href="views/create_user.html">Добавить пользователя</a>
     </body>
 </html>

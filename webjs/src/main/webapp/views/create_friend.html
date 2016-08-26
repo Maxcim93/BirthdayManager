@@ -3,22 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="js/postJSON.js"></script>
     <script >
-        function sendJSON(url,object){
-            var xhr = new XMLHttpRequest();
-
-            xhr.open("POST",url, true);
-            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-            xhr.send(object);
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    console.log('responseText:' + xhr.responseText);
-                    history.go(-1);
-                }
-            };
-        }
-
         function sendFriend(){
             var jsonFriend = JSON.stringify({
                 name: document.getElementById("name").value,

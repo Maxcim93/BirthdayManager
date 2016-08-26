@@ -29,8 +29,21 @@ public class ViewUsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.addHeader("Content-Type", "application/json; charset=utf-8");
-        final UserForm form = new ObjectMapper().readValue(req.getInputStream(), UserForm.class);
-        USER_CACHE.add(new User(form.getName(), form.getNumber(), form.getEmail()));
-        resp.getOutputStream().write("{'result' : 'true'}".getBytes());
+        int type= Integer.decode(req.getParameter("type"));
+        switch(type) {
+            case 0:
+                final UserForm form = new ObjectMapper().readValue(req.getInputStream(), UserForm.class);
+                USER_CACHE.add(new User(form.getName(), form.getNumber(), form.getEmail()));
+                resp.getOutputStream().write("{'result' : 'true'}".getBytes());
+                break;
+            case 1:
+                int idUserForDelete=Integer.decode(req.getParameter("id"));
+                int res=USER_CACHE.delete(idUserForDelete);
+                if(res>0)
+                    resp.getOutputStream().write("{'result' : 'true'}".getBytes());
+                else
+                    resp.getOutputStream().write("{'result' : 'false'}".getBytes());
+                break;
+        }
     }
 }
