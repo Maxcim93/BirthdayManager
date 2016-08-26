@@ -28,7 +28,7 @@ public class UsersCache{
         INSTANCE.users.add(user);
     }
 
-    public boolean delete(final int idUser) {
+    public boolean deleteUser(final int idUser) {
         Iterator<User> iterator=users.iterator();
         while(iterator.hasNext()){
             if(iterator.next().getId()==idUser) {
