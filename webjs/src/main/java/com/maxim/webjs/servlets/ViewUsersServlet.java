@@ -11,6 +11,7 @@ import com.maxim.manager.User;
 import com.maxim.webjs.storage.UserForm;
 import org.codehaus.jackson.map.ObjectMapper;
 import com.maxim.webjs.storage.UsersCache;
+import org.codehaus.jackson.JsonNode;
 
 /**
  * Created by Максим on 24.08.2016.
@@ -37,7 +38,8 @@ public class ViewUsersServlet extends HttpServlet {
                 resp.getOutputStream().write("{'result' : 'true'}".getBytes());
                 break;
             case 1:
-                int idUserForDelete=Integer.decode(req.getParameter("id"));
+                JsonNode rootNode=new ObjectMapper().readTree(req.getInputStream());
+                int idUserForDelete=rootNode.path("userid").getIntValue();
                 boolean res=USER_CACHE.deleteUser(idUserForDelete);
                 resp.getOutputStream().write(("{'result' :"+res+"}").getBytes());
                 break;

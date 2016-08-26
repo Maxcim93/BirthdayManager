@@ -5,6 +5,7 @@ import com.maxim.manager.User;
 import com.maxim.webjs.storage.FriendForm;
 import com.maxim.webjs.storage.UserForm;
 import com.maxim.webjs.storage.UsersCache;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -49,8 +50,9 @@ public class ViewFriendsServlet extends HttpServlet {
                 resp.getOutputStream().write("{'result' : 'true'}".getBytes());
                 break;
             case 1:
-                int idUser=Integer.decode(req.getParameter("idu"));
-                int idFriendForDelete=Integer.decode(req.getParameter("idf"));
+                JsonNode rootNode=new ObjectMapper().readTree(req.getInputStream());
+                int idUser=rootNode.path("userid").getIntValue();
+                int idFriendForDelete=rootNode.path("friendid").getIntValue();
                 boolean res=USER_CACHE.deleteFriend(idUser,idFriendForDelete);
                 resp.getOutputStream().write(("{'result' :"+res+"}").getBytes());
                 break;

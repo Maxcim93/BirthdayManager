@@ -6,10 +6,12 @@
         <script type="text/javascript" src="views/js/postJSON.js"></script>
         <script type="text/javascript">
             function deleteUser(idUser){
-                sendJSON("/users?type=1&id="+idUser,"",function(response){
+                var jsonId = JSON.stringify({userid: idUser});
+
+                sendJSON("/users?type=1",jsonId,function(response){
                     createUsersTable();
                 });
-            }
+            };
             function createUsersTable(){
                 ajax_get('/users', function(data) {
                     if(data.length<=0){
