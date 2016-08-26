@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="text/javascript" src="js/getUsersJSON.js"></script>>
+    <script type="text/javascript" src="js/getJSON.js"></script>
 </head>
 <body>
+    <label id="title"></label>
     <div id="friends"></div>
     <script type="text/javascript">
         var parameterId=location.href.split("?")[1];
         var urlGetFriendsJSONServlet="/user/friends?"+parameterId;
+        document.getElementById("title").innerHTML="Friends user: "+parameterId;
+
         ajax_get(urlGetFriendsJSONServlet, function(data) {
-            if(data==null){
-                document.getElementById("Friends").innerHTML = "<p>Friends don't existed</p>";
+            if(data.length<=0){
+                document.getElementById("friends").innerHTML = "<p>Friends don't existed</p>";
                 return;
             }
-            var html= "<table>";
+            var html= "<table  border=\"1\">";
                 html+="<tr>";
                     html+="<th>ID</th>";
                     html+="<th>Имя</th>";
@@ -30,12 +32,19 @@
                     "<td>"+data[i].name+"</td>"+
                     "<td>"+data[i].birthday+"</td>"+
                     "<td>"+data[i].interests+"</td>"+
-                    "<td>"+"<a href="">Удалить</a>"+"</td>"+
+                    "<td>"+"<a href=\"views\\create_user.html\">Удалить</a>"+"</td>"+
                     "</tr>"
                 }
             html+="</table>";
             document.getElementById("friends").innerHTML=html;
         });
+    </script>
+
+    <div id="toCreate"></div>
+    <script>
+        var parameterId=location.href.split("?")[1];
+        var refToCreateUser="<a href=\"create_friend.html?"+parameterId+"\">"+"Добавить друга"+"</a>";
+        document.getElementById("toCreate").innerHTML=refToCreateUser;
     </script>
 </body>
 </html>

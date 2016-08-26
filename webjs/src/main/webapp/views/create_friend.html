@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script >
+        function sendJSON(url,object){
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST",url, true);
+            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            xhr.send(object);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log('responseText:' + xhr.responseText);
+                    history.go(-1);
+                }
+            };
+        }
+
+        function sendFriend(){
+            var jsonFriend = JSON.stringify({
+                name: document.getElementById("name").value,
+                birthday: document.getElementById("birthday").value,
+                interests: document.getElementById("interests").value});
+            var parameterId=location.href.split("?")[1];
+            var urlPostFriendServlet="/user/friends?"+parameterId;
+            sendJSON(urlPostFriendServlet,jsonFriend);
+        }
+    </script>
+</head>
+<body>
+<div class="center">
+    <div class="form">
+        <div>
+            <label for="name">Имя</label>
+            <input type="text" name="name" id="name"/>
+        </div>
+        <div>
+            <label for="birthday">Дата рождения</label>
+            <input type="text" name="birthday" id="birthday"/>
+        </div>
+        <div>
+            <label for="interests">Интересы</label>
+            <input type="text" name="interests" id="interests"/>
+        </div>
+        <div>
+            <input type="button" value="Создать" onclick="sendFriend()">
+        </div>
+    </div>
+</div>
+</body>
+</html>

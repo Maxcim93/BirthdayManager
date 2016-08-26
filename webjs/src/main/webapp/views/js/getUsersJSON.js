@@ -17,11 +17,11 @@ function ajax_get(url, callback) {
 }
 
 ajax_get('/users', function(data) {
-    if(data==null){
+    if(data.length<=0){
         document.getElementById("users").innerHTML = "<p>Users don't existed</p>";
         return;
     }
-    var html= "<table>";
+    var html= "<table  border=\"1\">";
         html+="<tr>";
             html+="<th>ID</th>";
             html+="<th>Имя</th>";

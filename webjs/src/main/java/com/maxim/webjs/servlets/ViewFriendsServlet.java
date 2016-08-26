@@ -1,5 +1,9 @@
 package com.maxim.webjs.servlets;
 
+import com.maxim.manager.Friend;
+import com.maxim.manager.User;
+import com.maxim.webjs.storage.FriendForm;
+import com.maxim.webjs.storage.UserForm;
 import com.maxim.webjs.storage.UsersCache;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -9,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Максим on 25.08.2016.
@@ -20,7 +26,24 @@ public class ViewFriendsServlet extends HttpServlet {
             throws ServletException, IOException {
         resp.addHeader("Content-Type", "application/json; charset=utf-8");
         ServletOutputStream out = resp.getOutputStream();
-        out.print(new ObjectMapper().writeValueAsString(USER_CACHE.get(Integer.decode(req.getParameter("id"))).getFriends()));
+
+        ObjectMapper mapper=new ObjectMapper();
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+        mapper.setDateFormat(format);
+        out.print(mapper.writeValueAsString(USER_CACHE.get(Integer.decode(req.getParameter("id"))).getFriends()));
         out.flush();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.addHeader("Content-Type", "application/json; charset=utf-8");
+
+        ObjectMapper mapper=new ObjectMapper();
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+        mapper.setDateFormat(format);
+        final FriendForm form = mapper.readValue(req.getInputStream(), FriendForm.class);
+        User user=USER_CACHE.get(Integer.decode(req.getParameter("id")));
+        user.addFriend(new Friend(form.getName(),form.getBirthday(),form.getInterests()));
+        resp.getOutputStream().write("{'result' : 'true'}".getBytes());
     }
 }
