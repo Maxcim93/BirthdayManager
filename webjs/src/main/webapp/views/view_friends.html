@@ -3,45 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="js/getJSON.js"></script>
+    <script type="text/javascript" src="js/postJSON.js"></script>
+    <script type="text/javascript">
+        function deleteFriend(userId,friendId){
+            sendJSON("/user/friends?type=1&idu="+userId+"&idf="+friendId,"",function(response){
+                    viewFriends();
+                });
+        };
+        function viewFriends(){
+            var parameterId=location.href.split("?")[1];
+            var urlGetFriendsJSONServlet="/user/friends?"+parameterId;
+            document.getElementById("title").innerHTML="Friends user: "+parameterId;
+
+            ajax_get(urlGetFriendsJSONServlet, function(data) {
+                if(data.length<=0){
+                    document.getElementById("friends").innerHTML = "<p>Friends don't existed</p>";
+                    return;
+                }
+                var html= "<table  border=\"1\">";
+                    html+="<tr>";
+                        html+="<th>ID</th>";
+                        html+="<th>Имя</th>";
+                        html+="<th>Дата рождения</th>";
+                        html+="<th>Предпочтения</th>";
+                        html+="<th></th>";
+                    html+="</tr>";
+                    var size = data.length;
+                    for (var i=0;i!=size;++i) {
+                        html += "<tr>"+
+                        "<td>"+data[i].id+"</td>"+
+                        "<td>"+data[i].name+"</td>"+
+                        "<td>"+data[i].birthday+"</td>"+
+                        "<td>"+data[i].interests+"</td>"+
+                        "<td>"+
+                            "<a href=\"javascript:deleteFriend("+parameterId.split("=")[1]+","+data[i].id+")\">Удалить</a>"+
+                        "</td>"+
+                        "</tr>"
+                    }
+                html+="</table>";
+                document.getElementById("friends").innerHTML=html;
+            });
+        };
+    </script>
 </head>
 <body>
     <label id="title"></label>
     <div id="friends"></div>
     <script type="text/javascript">
-        var parameterId=location.href.split("?")[1];
-        var urlGetFriendsJSONServlet="/user/friends?"+parameterId;
-        document.getElementById("title").innerHTML="Friends user: "+parameterId;
-
-        ajax_get(urlGetFriendsJSONServlet, function(data) {
-            if(data.length<=0){
-                document.getElementById("friends").innerHTML = "<p>Friends don't existed</p>";
-                return;
-            }
-            var html= "<table  border=\"1\">";
-                html+="<tr>";
-                    html+="<th>ID</th>";
-                    html+="<th>Имя</th>";
-                    html+="<th>Дата рождения</th>";
-                    html+="<th>Предпочтения</th>";
-                    html+="<th></th>";
-                html+="</tr>";
-                var size = data.length;
-                for (var i=0;i!=size;++i) {
-                    html += "<tr>"+
-                    "<td>"+data[i].id+"</td>"+
-                    "<td>"+data[i].name+"</td>"+
-                    "<td>"+data[i].birthday+"</td>"+
-                    "<td>"+data[i].interests+"</td>"+
-                    "<td>"+"<a href=\"views\\create_user.html\">Удалить</a>"+"</td>"+
-                    "</tr>"
-                }
-            html+="</table>";
-            document.getElementById("friends").innerHTML=html;
-        });
+        viewFriends();
     </script>
-
     <div id="toCreate"></div>
-    <script>
+    <script type="text/javascript">
         var parameterId=location.href.split("?")[1];
         var refToCreateUser="<a href=\"create_friend.html?"+parameterId+"\">"+"Добавить друга"+"</a>";
         document.getElementById("toCreate").innerHTML=refToCreateUser;

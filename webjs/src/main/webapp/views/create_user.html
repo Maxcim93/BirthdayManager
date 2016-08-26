@@ -10,7 +10,9 @@
                 name: document.getElementById("name").value,
                 number: document.getElementById("number").value,
                 email: document.getElementById("email").value});
-            sendJSON("/users?type=0",jsonUser);
+            sendJSON("/users?type=0",jsonUser, new function(response){
+                history.go(-1);
+            });
         }
     </script>
 </head>

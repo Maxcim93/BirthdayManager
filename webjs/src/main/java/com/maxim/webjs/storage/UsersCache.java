@@ -1,9 +1,11 @@
 package com.maxim.webjs.storage;
 
+import com.maxim.manager.Friend;
 import com.maxim.manager.User;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.ListIterator;
 
 /**
  * Created by Максим on 24.08.2016.
@@ -25,13 +27,13 @@ public class UsersCache{
         INSTANCE.users.add(user);
     }
 
-    public int delete(final int id) {
+    public boolean delete(final int id) {
         for(User user:INSTANCE.users)
             if(user.getId()==id) {
                 INSTANCE.users.remove(user);
-                return 1;
+                return true;
             }
-        return -1;
+        return false;
     }
 
     public User get(final int id) {
@@ -41,5 +43,16 @@ public class UsersCache{
                 curUser=user;
             }
         return curUser;
+    }
+
+    public boolean deleteFriend(int idUser,int idFriend){
+        ListIterator<Friend> iterator=get(idUser).getFriends().listIterator();
+        while(iterator.hasNext()){
+            if(iterator.next().getId()==idFriend) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 }

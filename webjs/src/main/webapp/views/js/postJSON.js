@@ -1,4 +1,4 @@
-function sendJSON(url,object){
+function sendJSON(url,object, callback){
             var xhr = new XMLHttpRequest();
 
             xhr.open("POST",url, true);
@@ -8,7 +8,7 @@ function sendJSON(url,object){
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log('responseText:' + xhr.responseText);
-                    history.go(-1);
+                    callback(xhr.responseText);
                 }
             };
         }

@@ -38,11 +38,8 @@ public class ViewUsersServlet extends HttpServlet {
                 break;
             case 1:
                 int idUserForDelete=Integer.decode(req.getParameter("id"));
-                int res=USER_CACHE.delete(idUserForDelete);
-                if(res>0)
-                    resp.getOutputStream().write("{'result' : 'true'}".getBytes());
-                else
-                    resp.getOutputStream().write("{'result' : 'false'}".getBytes());
+                boolean res=USER_CACHE.delete(idUserForDelete);
+                resp.getOutputStream().write(("{'result' :"+res+"}").getBytes());
                 break;
         }
     }

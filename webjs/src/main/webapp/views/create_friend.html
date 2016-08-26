@@ -11,8 +11,10 @@
                 birthday: document.getElementById("birthday").value,
                 interests: document.getElementById("interests").value});
             var parameterId=location.href.split("?")[1];
-            var urlPostFriendServlet="/user/friends?"+parameterId;
-            sendJSON(urlPostFriendServlet,jsonFriend);
+            var urlPostFriendServlet="/user/friends?"+"type=0&"+parameterId;
+            sendJSON(urlPostFriendServlet,jsonFriend,function(response){
+                 history.go(-1);
+            });
         }
     </script>
 </head>

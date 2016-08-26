@@ -37,13 +37,24 @@ public class ViewFriendsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.addHeader("Content-Type", "application/json; charset=utf-8");
+        int type= Integer.decode(req.getParameter("type"));
+        switch(type) {
+            case 0:
+                ObjectMapper mapper = new ObjectMapper();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                mapper.setDateFormat(format);
+                final FriendForm form = mapper.readValue(req.getInputStream(), FriendForm.class);
+                User user = USER_CACHE.get(Integer.decode(req.getParameter("id")));
+                user.addFriend(new Friend(form.getName(), form.getBirthday(), form.getInterests()));
+                resp.getOutputStream().write("{'result' : 'true'}".getBytes());
+                break;
+            case 1:
+                int idUser=Integer.decode(req.getParameter("idu"));
+                int idFriendForDelete=Integer.decode(req.getParameter("idf"));
+                boolean res=USER_CACHE.deleteFriend(idUser,idFriendForDelete);
+                resp.getOutputStream().write(("{'result' :"+res+"}").getBytes());
+                break;
 
-        ObjectMapper mapper=new ObjectMapper();
-        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
-        mapper.setDateFormat(format);
-        final FriendForm form = mapper.readValue(req.getInputStream(), FriendForm.class);
-        User user=USER_CACHE.get(Integer.decode(req.getParameter("id")));
-        user.addFriend(new Friend(form.getName(),form.getBirthday(),form.getInterests()));
-        resp.getOutputStream().write("{'result' : 'true'}".getBytes());
+        }
     }
 }

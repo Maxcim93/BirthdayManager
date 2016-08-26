@@ -25,4 +25,5 @@ public class Friend {
     public String getName(){return name;}
     public Date getBirthday(){return birthday;}
     public String getInterests(){return interests;}
+    public int getId(){return id;}
 }
