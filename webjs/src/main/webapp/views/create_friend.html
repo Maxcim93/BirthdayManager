@@ -7,10 +7,26 @@
     <script type="text/javascript" src="js/postJSON.js"></script>
     <script >
         function sendFriend(){
-            var jsonFriend = JSON.stringify({
-                name: document.getElementById("name").value,
-                birthday: document.getElementById("birthday").value,
-                interests: document.getElementById("interests").value});
+            var name=document.getElementById("name").value;
+            var birthday= document.getElementById("birthday").value;
+            var interests=document.getElementById("interests").value;
+
+            //check enter value
+            var regexpBirthday = /^\d{4}-\d{2}-\d{2}$/i;
+
+            if(name==""){
+                alert("Name id empty");
+                document.getElementById("name").style.border="2px solid red";
+                return;
+            }
+
+            if(!regexpBirthday.test(birthday)){
+                alert("Enter uncorrected date of birthday");
+                document.getElementById("birthday").style.border="2px solid red";
+                return;
+            }
+
+            var jsonFriend = JSON.stringify({name: name, birthday: birthday, interests: interests});
             var parameterId=location.href.split("?")[1];
             var urlPostFriendServlet="/user/friends?"+"type=0&"+parameterId;
             sendJSON(urlPostFriendServlet,jsonFriend,function(response){

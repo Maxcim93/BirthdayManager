@@ -6,11 +6,42 @@
     <title>Title</title>
     <script type="text/javascript" src="js/postJSON.js"></script>
     <script type="text/javascript">
+        function checkEmail(email){
+            var regexp = /^\w+@\w+.\w+$/i;
+            alert(regexp.test(email));
+        }
+        function checkNumber(number){
+            var regexp = /^\d*$/i;
+            alert(regexp.test(number));
+        }
         function sendUser(){
-            var jsonUser = JSON.stringify({
-                name: document.getElementById("name").value,
-                number: document.getElementById("number").value,
-                email: document.getElementById("email").value});
+            var name=document.getElementById("name").value;
+            var number= document.getElementById("number").value;
+            var email=document.getElementById("email").value;
+
+            //check enter value
+            var regexpEmail = /^\w+@\w+.\w+$/i;
+            var regexpNumber = /^\d+$/i;
+
+            if(name==""){
+                alert("Name id empty");
+                document.getElementById("name").style.border="2px solid red";
+                return;
+            }
+
+            if(!regexpNumber.test(number)){
+                alert("Enter uncorrected number");
+                document.getElementById("number").style.border="2px solid red";
+                return;
+            }
+
+            if(!regexpEmail.test(email)){
+                alert("Enter uncorrected email");
+                document.getElementById("email").style.border="2px solid red";
+                return;
+            }
+
+            var jsonUser = JSON.stringify({name: name, number: number, email: email});
             sendJSON("/users?type=0",jsonUser, new function(response){
                 history.go(-1);
             });
