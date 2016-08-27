@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Pragma" content="no-cache" >
+    <link rel="stylesheet" href="css/main_style.css">
+
     <script type="text/javascript" src="js/getJSON.js"></script>
     <script type="text/javascript" src="js/postJSON.js"></script>
     <script type="text/javascript">
@@ -14,7 +17,6 @@
         function viewFriends(){
             var parameterId=location.href.split("?")[1];
             var urlGetFriendsJSONServlet="/user/friends?"+parameterId;
-            document.getElementById("title").innerHTML="Friends user: "+parameterId;
 
             ajax_get(urlGetFriendsJSONServlet, function(data) {
                 if(data.length<=0){
@@ -48,16 +50,19 @@
     </script>
 </head>
 <body>
-    <label id="title"></label>
-    <div id="friends"></div>
-    <script type="text/javascript">
-        viewFriends();
-    </script>
-    <div id="toCreate"></div>
-    <script type="text/javascript">
-        var parameterId=location.href.split("?")[1];
-        var refToCreateUser="<a href=\"create_friend.html?"+parameterId+"\">"+"Добавить друга"+"</a>";
-        document.getElementById("toCreate").innerHTML=refToCreateUser;
-    </script>
+    <div class="center">
+        <h1>Создать пользователя</h1>
+        <div id="friends" class="inner"></div>
+        <script type="text/javascript">
+            viewFriends();
+        </script>
+        <div id="toCreate"></div>
+        <script type="text/javascript">
+            var parameterId=location.href.split("?")[1];
+            var refToForm="javascript:document.location='create_friend.html?"+parameterId+"'";
+            var refToCreateUser="<input type=\"button\" onclick=\""+ refToForm+"\" value=\"Добавить друга\">";
+            document.getElementById("toCreate").innerHTML=refToCreateUser;
+        </script>
+    </div>
 </body>
 </html>
