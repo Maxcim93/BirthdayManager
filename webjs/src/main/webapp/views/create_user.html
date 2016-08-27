@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/main_style.css">
+    <title>Title</title>
+    <script type="text/javascript" src="js/postJSON.js"></script>
+    <script type="text/javascript">
+        function checkEmail(email){
+            var regexp = /^\w+@\w+.\w+$/i;
+            alert(regexp.test(email));
+        }
+        function checkNumber(number){
+            var regexp = /^\d*$/i;
+            alert(regexp.test(number));
+        }
+        function sendUser(){
+            var name=document.getElementById("name").value;
+            var number= document.getElementById("number").value;
+            var email=document.getElementById("email").value;
+
+            //check enter value
+            var regexpEmail = /^\w+@\w+.\w+$/i;
+            var regexpNumber = /^\d+$/i;
+
+            if(name==""){
+                alert("Name id empty");
+                document.getElementById("name").style.border="2px solid red";
+                return;
+            }
+
+            if(!regexpNumber.test(number)){
+                alert("Enter uncorrected number");
+                document.getElementById("number").style.border="2px solid red";
+                return;
+            }
+
+            if(!regexpEmail.test(email)){
+                alert("Enter uncorrected email");
+                document.getElementById("email").style.border="2px solid red";
+                return;
+            }
+
+            var jsonUser = JSON.stringify({name: name, number: number, email: email});
+            sendJSON("/users?type=0",jsonUser, new function(response){
+                history.go(-1);
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="center">
+    <h1>Создать пользователя</h1>
+    <div class="form">
+        <label for="name">Имя</label>
+        <input type="text" name="name" id="name"/>
+        <label for="number">Телефон</label>
+        <input type="text" name="number" id="number"/>
+        <label for="email">E-mail</label>
+        <input type="text" name="email" id="email"/>
+        <input type="button" value="Создать" onclick="sendUser()">
+    </div>
+</div>
+</body>
+</html>

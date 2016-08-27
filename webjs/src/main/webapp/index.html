@@ -1,0 +1,60 @@
+<html>
+    <link>
+        <meta charset="UTF-8">
+        <meta http-equiv="Pragma" content="no-cache" >
+        <link rel="stylesheet" href="views/css/main_style.css">
+        <script type="text/javascript" src="views/js/getJSON.js"></script>
+        <script type="text/javascript" src="views/js/postJSON.js"></script>
+        <script type="text/javascript">
+            function deleteUser(idUser){
+                var jsonId = JSON.stringify({userid: idUser});
+
+                sendJSON("/users?type=1",jsonId,function(response){
+                    createUsersTable();
+                });
+            };
+            function createUsersTable(){
+                ajax_get('/users', function(data) {
+                    if(data.length<=0){
+                        document.getElementById("users").innerHTML = "<p>Users don't existed</p>";
+                        return;
+                    }
+                    var html= "<table  border=\"1\">";
+                        html+="<tr>";
+                            html+="<th>ID</th>";
+                            html+="<th >Имя</th>";
+                            html+="<th >Номер</th>";
+                            html+="<th >Логин</th>";
+                            html+="<th >Друзья</th>";
+                            html+="<th >Операции</th>";
+                        html+="</tr>";
+                        var size = data.length;
+                        for (var i=0;i!=size;++i) {
+                            html += "<tr>"+
+                            "<td>"+data[i].id+"</td>"+
+                            "<td>"+data[i].name+"</td>"+
+                            "<td>"+data[i].number+"</td>"+
+                            "<td>"+data[i].email+"</td>"+
+                            "<td>"+"<a href=\"views/view_friends.html?id="+data[i].id+"\"> Друзья пользователя</a>"+"</td>"+
+                            "<td>"+
+                                "<a href=\"javascript:deleteUser("+data[i].id+")\">"+"Удалить"+"</a>"
+                            +"</td>"+
+                            "</tr>"
+                        }
+                    html+="</table>";
+                    document.getElementById("users").innerHTML=html;
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <div class="center">
+            <h1>Пользователи</h1>
+            <div class="inner" id="users"></div>
+            <input type="button" onclick="javascript:document.location='views/create_user.html'" value="Создать пользователя">
+        </div>
+        <script type="text/javascript">
+            createUsersTable();
+        </script>
+    </body>
+</html>
