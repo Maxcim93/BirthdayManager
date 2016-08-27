@@ -17,10 +17,6 @@
                 width: 80%;
             }
 
-            .form{
-                 text-align:center;
-            }
-
             table{
                 margin: auto;
                 border-collapse: collapse;
@@ -64,4 +60,18 @@
                 cursor: pointer;
             }
 
+            input[type=text] {
+                width: 98%;
+                padding: 12px 20px;
+                box-sizing: border-box;
+                margin-right: 1%;
+                margin-left: 1%;
+                margin-top: 1%;
+                margin-butom: 1%;
+            }
+
+            .form{
+                width: 70%;
+                margin: auto;
+            }
 
