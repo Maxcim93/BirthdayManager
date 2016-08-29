@@ -38,7 +38,7 @@ public class UserDbStorage implements Storage<User> {
                         rs.getString("email")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            new RuntimeException("Could not get all users",e);
         }
         return users;
     };
@@ -57,10 +57,10 @@ public class UserDbStorage implements Storage<User> {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            new RuntimeException("Could not create new user",e);
         }
-        throw new IllegalStateException("Could not create new user");
-    };
+        return -1;
+    }
 
     public void edit(final User user){
         try (final PreparedStatement statement = this.connection.prepareStatement("update client set name=?,number=?,email=? where id=?",
@@ -72,8 +72,7 @@ public class UserDbStorage implements Storage<User> {
             statement.setString(3,user.getEmail());
             statement.executeUpdate();
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not update user");
-            e.initCause(newE);
+            new RuntimeException("Could not update user",e);
         }
     };
 
@@ -83,8 +82,7 @@ public class UserDbStorage implements Storage<User> {
             statement.setInt(1,id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not delete user");
-            e.initCause(newE);
+            new RuntimeException("Could not delete user",e);
         }
     }
 
@@ -95,8 +93,7 @@ public class UserDbStorage implements Storage<User> {
             final ResultSet rs=statement.executeQuery();
             user=new User(rs.getInt(id),rs.getString("name"),rs.getString("number"),rs.getString("email"));
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not create new user");
-            e.initCause(newE);
+            new RuntimeException("Could not create new user",e);
         }
         return user;
     };

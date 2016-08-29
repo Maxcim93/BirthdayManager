@@ -1,11 +1,8 @@
 package com.maxim.webjs.servlets;
 
 import com.maxim.manager.Friend;
-import com.maxim.manager.User;
 import com.maxim.webjs.storage.FriendDbStorage;
 import com.maxim.webjs.storage.FriendForm;
-import com.maxim.webjs.storage.UserForm;
-import com.maxim.webjs.storage.UsersCache;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -15,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;

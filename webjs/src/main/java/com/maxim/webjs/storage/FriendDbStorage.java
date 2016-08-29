@@ -43,8 +43,7 @@ public class FriendDbStorage implements Storage<Friend> {
                         rs.getInt("iduser")));
             }
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not get all friends");
-            e.initCause(newE);
+            new RuntimeException("Could not get all friends",e);
         }
         return friends;}
 
@@ -64,8 +63,7 @@ public class FriendDbStorage implements Storage<Friend> {
             }
         }
         } catch (SQLException e) {
-                Throwable newE=new Exception("Could not create new user");
-                e.initCause(newE);
+            new RuntimeException("Could not create new user",e);
         }
         return -1;
     }
@@ -80,8 +78,7 @@ public class FriendDbStorage implements Storage<Friend> {
             statement.setString(3,friend.getInterests());
             statement.executeUpdate();
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not change friend");
-            e.initCause(newE);
+            new RuntimeException("Could not change friend",e);
         }
     }
 
@@ -91,8 +88,7 @@ public class FriendDbStorage implements Storage<Friend> {
             statement.setInt(1,id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not delete friend");
-            e.initCause(newE);
+            new RuntimeException("Could not delete friend",e);
         }
     };
 
@@ -109,8 +105,7 @@ public class FriendDbStorage implements Storage<Friend> {
                     rs.getString("interests"),
                     rs.getInt("iduser"));
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not get friend");
-            e.initCause(newE);
+            new RuntimeException("Could not get friend",e);
         }
         return friend;
     }
@@ -123,8 +118,7 @@ public class FriendDbStorage implements Storage<Friend> {
         try {
             idUser = (Integer) params.get("iduser");
         }catch(ClassCastException|NullPointerException e){
-            Throwable newE=new Exception("Params don't contain the key'iduser'");
-            e.initCause(newE);
+            new RuntimeException("Params don't contain the key'iduser'",e);
         }
 
         //get friends
@@ -141,8 +135,7 @@ public class FriendDbStorage implements Storage<Friend> {
                         rs.getInt("iduser")));
             }
         } catch (SQLException e) {
-            Throwable newE=new Exception("Could not get friends for this user");
-            e.initCause(newE);
+            new RuntimeException("Could not get friends for this user",e);
         }
         return friends;};
 
