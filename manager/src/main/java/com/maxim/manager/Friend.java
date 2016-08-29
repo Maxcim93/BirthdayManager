@@ -12,18 +12,27 @@ public class Friend {
     private String name;
     private Date birthday;
     private String interests;
+    private int iduser;
 
-    private static int countFriends=0;
 
-    public Friend(String name,Date birthday,String interests){
+    public Friend(String name,Date birthday,String interests,int iduser){
         this.name=name;
         this.birthday= birthday;
         this.interests=interests;
-        this.id=countFriends++;
+        this.iduser=iduser;
+    }
+
+    public Friend(int id,String name,Date birthday,String interests, int iduser){
+        this.id=id;
+        this.name=name;
+        this.birthday= birthday;
+        this.interests=interests;
+        this.iduser=iduser;
     }
 
     public String getName(){return name;}
     public Date getBirthday(){return birthday;}
     public String getInterests(){return interests;}
     public int getId(){return id;}
+    public int getIdUser(){return iduser;}
 }

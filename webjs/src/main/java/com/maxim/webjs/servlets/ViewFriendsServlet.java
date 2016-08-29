@@ -2,6 +2,7 @@ package com.maxim.webjs.servlets;
 
 import com.maxim.manager.Friend;
 import com.maxim.manager.User;
+import com.maxim.webjs.storage.FriendDbStorage;
 import com.maxim.webjs.storage.FriendForm;
 import com.maxim.webjs.storage.UserForm;
 import com.maxim.webjs.storage.UsersCache;
@@ -16,12 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Максим on 25.08.2016.
  */
 public class ViewFriendsServlet extends HttpServlet {
-    private static UsersCache USER_CACHE =UsersCache.getInstance();
+    private static FriendDbStorage FRIEND_STORAGE =FriendDbStorage.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -31,7 +34,9 @@ public class ViewFriendsServlet extends HttpServlet {
         ObjectMapper mapper=new ObjectMapper();
         SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
         mapper.setDateFormat(format);
-        out.print(mapper.writeValueAsString(USER_CACHE.get(Integer.decode(req.getParameter("id"))).getFriends()));
+        Map<String,Object> params=new HashMap<String,Object>();
+        params.put("iduser",Integer.decode(req.getParameter("id")));
+        out.print(mapper.writeValueAsString(FRIEND_STORAGE.get(params)));
         out.flush();
     }
 
@@ -45,16 +50,18 @@ public class ViewFriendsServlet extends HttpServlet {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 mapper.setDateFormat(format);
                 final FriendForm form = mapper.readValue(req.getInputStream(), FriendForm.class);
-                User user = USER_CACHE.get(Integer.decode(req.getParameter("id")));
-                user.addFriend(new Friend(form.getName(), form.getBirthday(), form.getInterests()));
+                FRIEND_STORAGE.add(new Friend(
+                        form.getName(),
+                        form.getBirthday(),
+                        form.getInterests(),
+                        Integer.decode(req.getParameter("id"))));
                 resp.getOutputStream().write("{'result' : 'true'}".getBytes());
                 break;
             case 1:
                 JsonNode rootNode=new ObjectMapper().readTree(req.getInputStream());
-                int idUser=rootNode.path("userid").getIntValue();
                 int idFriendForDelete=rootNode.path("friendid").getIntValue();
-                boolean res=USER_CACHE.deleteFriend(idUser,idFriendForDelete);
-                resp.getOutputStream().write(("{'result' :"+res+"}").getBytes());
+                FRIEND_STORAGE.delete(idFriendForDelete);
+                resp.getOutputStream().write(("{'result' : 'true'}").getBytes());
                 break;
 
         }

@@ -13,18 +13,25 @@ public class User {
     private LinkedList<Friend> friends=new LinkedList<Friend>();
     private int id;
 
-    private static int countUsers=0;
+    public User(){}
+
+    public User(int id,String name,String number,String email){
+        this.id=id;
+        this.name=name;
+        this.number=number;
+        this.email=email;
+    }
 
     public User(String name,String number,String email){
         this.name=name;
         this.number=number;
         this.email=email;
-        this.id=countUsers++;
     }
 
     public String getNumber(){return number;}
     public String getEmail(){return email;}
     public String getName(){return name;}
+
     public void addFriend(Friend friend){friends.add(friend);}
     public LinkedList<Friend> getFriends(){return friends;}
     public int getId(){return id;}

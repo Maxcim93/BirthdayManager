@@ -8,8 +8,8 @@
     <script type="text/javascript" src="js/getJSON.js"></script>
     <script type="text/javascript" src="js/postJSON.js"></script>
     <script type="text/javascript">
-        function deleteFriend(userId,friendId){
-            var jsonId = JSON.stringify({userid: userId,friendid: friendId});
+        function deleteFriend(friendId){
+            var jsonId = JSON.stringify({friendid: friendId});
             sendJSON("/user/friends?type=1",jsonId,function(response){
                     viewFriends();
                 });
@@ -39,7 +39,7 @@
                         "<td>"+data[i].birthday+"</td>"+
                         "<td>"+data[i].interests+"</td>"+
                         "<td>"+
-                            "<a href=\"javascript:deleteFriend("+parameterId.split("=")[1]+","+data[i].id+")\">Удалить</a>"+
+                            "<a href=\"javascript:deleteFriend("+data[i].id+")\">Удалить</a>"+
                         "</td>"+
                         "</tr>"
                     }
@@ -51,7 +51,7 @@
 </head>
 <body>
     <div class="center">
-        <h1>Создать пользователя</h1>
+        <h1>Друзья пользователя</h1>
         <div id="friends" class="inner"></div>
         <script type="text/javascript">
             viewFriends();
