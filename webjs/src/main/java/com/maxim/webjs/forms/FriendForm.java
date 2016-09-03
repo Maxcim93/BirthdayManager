@@ -1,4 +1,4 @@
-package com.maxim.webjs.storage;
+package com.maxim.webjs.forms;
 
 import java.util.Date;
 

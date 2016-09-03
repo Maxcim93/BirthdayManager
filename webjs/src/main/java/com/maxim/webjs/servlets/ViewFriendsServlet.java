@@ -2,7 +2,7 @@ package com.maxim.webjs.servlets;
 
 import com.maxim.manager.Friend;
 import com.maxim.webjs.storage.FriendDbStorage;
-import com.maxim.webjs.storage.FriendForm;
+import com.maxim.webjs.forms.FriendForm;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 

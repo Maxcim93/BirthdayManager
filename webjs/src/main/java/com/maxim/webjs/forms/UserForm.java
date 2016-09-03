@@ -1,4 +1,4 @@
-package com.maxim.webjs.storage;
+package com.maxim.webjs.forms;
 
 /**
  * Created by Максим on 25.08.2016.

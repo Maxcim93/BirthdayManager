@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import com.maxim.manager.User;
 import com.maxim.webjs.storage.UserDbStorage;
-import com.maxim.webjs.storage.UserForm;
+import com.maxim.webjs.forms.UserForm;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.JsonNode;
 
