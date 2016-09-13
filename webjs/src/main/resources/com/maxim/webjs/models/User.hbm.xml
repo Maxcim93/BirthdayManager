@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+		"-//Hibernate/Hibernate Mapping DTD//EN"
+		"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.maxim.manager.User" table="client">
+		<meta attribute="class-description">
+			This class contains the user detail.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="increment"/>
+		</id>
+		<property name="name" column="name" type="string"/>
+		<property name="number" column="number" type="string"/>
+		<property name="email" column="email" type="string"/>
+	</class>
+</hibernate-mapping>

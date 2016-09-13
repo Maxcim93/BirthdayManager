@@ -10,7 +10,6 @@ public class User {
     private String number;
     private String email;
     private String name;
-    private LinkedList<Friend> friends=new LinkedList<Friend>();
     private int id;
 
     public User(){}
@@ -29,21 +28,14 @@ public class User {
     }
 
     public String getNumber(){return number;}
+    public void setNumber(String number){this.number=number;}
+
     public String getEmail(){return email;}
+    public void setEmail(String email){this.email=email;}
+
     public String getName(){return name;}
+    public void setName(String name){this.name=name;}
 
-    public void addFriend(Friend friend){friends.add(friend);}
-    public LinkedList<Friend> getFriends(){return friends;}
     public int getId(){return id;}
-
-    public Friend getFriend(int id){
-        Friend retFriend=null;
-        for(Friend friend: friends){
-            if(friend.getId()==id) {
-                retFriend = friend;
-                break;
-            }
-        }
-        return retFriend;
-    }
+    public void setId(int id){this.id=id;}
 }

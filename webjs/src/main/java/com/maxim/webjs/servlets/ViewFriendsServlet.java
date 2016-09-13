@@ -1,9 +1,12 @@
 package com.maxim.webjs.servlets;
 
 import com.maxim.manager.Friend;
-import com.maxim.webjs.storage.FriendDbStorage;
+import com.maxim.manager.User;
+import com.maxim.webjs.storage.FriendHibernateStorage;
 import com.maxim.webjs.forms.FriendForm;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +24,7 @@ import java.util.Map;
  * Created by Максим on 25.08.2016.
  */
 public class ViewFriendsServlet extends HttpServlet {
-    private static FriendDbStorage FRIEND_STORAGE =FriendDbStorage.getInstance();
+    private static FriendHibernateStorage FRIEND_STORAGE = FriendHibernateStorage.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -30,9 +34,13 @@ public class ViewFriendsServlet extends HttpServlet {
         ObjectMapper mapper=new ObjectMapper();
         SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
         mapper.setDateFormat(format);
+        //mapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
+        //mapper.enableDefaultTypingAsProperty(ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE, "type");
+
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("iduser",Integer.decode(req.getParameter("id")));
-        out.print(mapper.writeValueAsString(FRIEND_STORAGE.get(params)));
+        Collection<Friend> friendsForUser=FRIEND_STORAGE.get(params);
+        out.print(mapper.writeValueAsString(friendsForUser));
         out.flush();
     }
 
@@ -50,7 +58,7 @@ public class ViewFriendsServlet extends HttpServlet {
                         form.getName(),
                         form.getBirthday(),
                         form.getInterests(),
-                        Integer.decode(req.getParameter("id"))));
+                        new User(Integer.decode(req.getParameter("id")),null,null,null)));
                 resp.getOutputStream().write("{'result' : 'true'}".getBytes());
                 break;
             case 1:

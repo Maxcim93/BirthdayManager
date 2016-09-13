@@ -12,27 +12,39 @@ public class Friend {
     private String name;
     private Date birthday;
     private String interests;
-    private int iduser;
+    private User user;
 
 
-    public Friend(String name,Date birthday,String interests,int iduser){
+    public Friend(){
+
+    }
+    public Friend(String name,Date birthday,String interests,User user){
         this.name=name;
         this.birthday= birthday;
         this.interests=interests;
-        this.iduser=iduser;
+        this.user=user;
     }
 
-    public Friend(int id,String name,Date birthday,String interests, int iduser){
+    public Friend(int id,String name,Date birthday,String interests, User user){
         this.id=id;
         this.name=name;
         this.birthday= birthday;
         this.interests=interests;
-        this.iduser=iduser;
+        this.user=user;
     }
 
-    public String getName(){return name;}
-    public Date getBirthday(){return birthday;}
-    public String getInterests(){return interests;}
     public int getId(){return id;}
-    public int getIdUser(){return iduser;}
+    public void setId(int id){this.id=id;}
+
+    public String getName(){return name;}
+    public void setName(String name){this.name=name;}
+
+    public Date getBirthday(){return birthday;}
+    public void setBirthday(Date birthday){this.birthday=birthday;}
+
+    public String getInterests(){return interests;}
+    public void setInterests(String interests){this.interests=interests;}
+
+    public User getUser(){return user;}
+    public void setUser(User user){this.user=user;}
 }
