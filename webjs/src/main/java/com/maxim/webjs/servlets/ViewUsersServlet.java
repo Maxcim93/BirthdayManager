@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.maxim.manager.User;
-import com.maxim.webjs.storage.UserHibernateStorage;
+import com.maxim.webjs.service.AppSpringContext;
+import com.maxim.webjs.storage.Storage;
+import com.maxim.webjs.storage.Storages;
 import com.maxim.webjs.forms.UserForm;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.JsonNode;
@@ -17,7 +19,8 @@ import org.codehaus.jackson.JsonNode;
  * Created by Максим on 24.08.2016.
  */
 public class ViewUsersServlet extends HttpServlet {
-    private static UserHibernateStorage USER_STORAGE = UserHibernateStorage.getInstance();
+    private static Storage<User> USER_STORAGE =
+            AppSpringContext.getInstance().getBean("storages",Storages.class).getUsersStorage();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

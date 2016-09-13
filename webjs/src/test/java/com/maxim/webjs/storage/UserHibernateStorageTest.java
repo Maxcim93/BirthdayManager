@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class UserHibernateStorageTest {
     @Test
     public void addGetDeleteUser() throws Exception {
-        final UserHibernateStorage storage = UserHibernateStorage.getInstance();
+        final UserHibernateStorage storage = new UserHibernateStorage();
         final int id = storage.add(new User("name2", "080988098", "test@test.ru"));
         final User user = storage.get(id);
         assertEquals(id, user.getId());

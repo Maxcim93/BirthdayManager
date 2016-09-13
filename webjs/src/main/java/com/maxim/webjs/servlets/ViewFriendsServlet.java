@@ -2,11 +2,11 @@ package com.maxim.webjs.servlets;
 
 import com.maxim.manager.Friend;
 import com.maxim.manager.User;
-import com.maxim.webjs.storage.FriendHibernateStorage;
+import com.maxim.webjs.service.AppSpringContext;
 import com.maxim.webjs.forms.FriendForm;
+import com.maxim.webjs.storage.Storage;
+import com.maxim.webjs.storage.Storages;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -24,7 +24,8 @@ import java.util.Map;
  * Created by Максим on 25.08.2016.
  */
 public class ViewFriendsServlet extends HttpServlet {
-    private static FriendHibernateStorage FRIEND_STORAGE = FriendHibernateStorage.getInstance();
+    private static Storage<Friend> FRIEND_STORAGE =
+            AppSpringContext.getInstance().getBean("storages",Storages.class).getFriendsStorage();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

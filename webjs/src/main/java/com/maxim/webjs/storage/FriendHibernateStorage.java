@@ -14,8 +14,6 @@ import java.util.Map;
  * Created by Максим on 30.08.2016.
  */
 public class FriendHibernateStorage implements Storage<Friend> {
-    private static final FriendHibernateStorage INSTANCE =new FriendHibernateStorage();
-    public static FriendHibernateStorage getInstance(){return INSTANCE;}
 
     private final SessionFactory factory;
 

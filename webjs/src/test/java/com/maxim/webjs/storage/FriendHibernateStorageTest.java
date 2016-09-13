@@ -15,10 +15,10 @@ public class FriendHibernateStorageTest {
     @Test
     public void addGetDeleteFriend() throws Exception {
         //create user
-        final UserHibernateStorage storageUsers = UserHibernateStorage.getInstance();
+        final UserHibernateStorage storageUsers = new UserHibernateStorage();
         final int idUser = storageUsers.add(new User("name2", "080988098", "test@test.ru"));
         //create friends
-        final FriendHibernateStorage storageFriends = FriendHibernateStorage.getInstance();
+        final FriendHibernateStorage storageFriends = new FriendHibernateStorage();
         final int idFriend1 = storageFriends.add(new Friend("nameFriend",
                                                             new Date(980239L),
                                                             "any stuff",
