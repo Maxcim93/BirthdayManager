@@ -20,7 +20,7 @@ import org.codehaus.jackson.JsonNode;
  */
 public class ViewUsersServlet extends HttpServlet {
     private static Storage<User> USER_STORAGE =
-            AppSpringContext.getInstance().getBean("storages",Storages.class).getUsersStorage();
+            AppSpringContext.getInstance().getBean(Storages.class).getUsersStorage();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

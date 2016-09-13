@@ -5,11 +5,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
+
 import java.util.*;
 
 /**
  * Created by Максим on 29.08.2016.
  */
+@Repository
 public class UserHibernateStorage implements Storage<User>{
 
     private final SessionFactory factory;

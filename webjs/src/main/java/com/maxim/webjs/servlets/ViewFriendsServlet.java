@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class ViewFriendsServlet extends HttpServlet {
     private static Storage<Friend> FRIEND_STORAGE =
-            AppSpringContext.getInstance().getBean("storages",Storages.class).getFriendsStorage();
+            AppSpringContext.getInstance().getBean(Storages.class).getFriendsStorage();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

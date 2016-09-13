@@ -16,7 +16,7 @@ public class StoragesTest {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("spring_storages.xml");
 
-        Storages storages=context.getBean("storages",Storages.class);
+        Storages storages=context.getBean(Storages.class);
         Storage<User> userStorage=storages.getUsersStorage();
         Storage<Friend> friendStorage=storages.getFriendsStorage();
 
@@ -30,9 +30,8 @@ public class StoragesTest {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("spring_storages.xml");
 
-        Storages storagesOneRef=context.getBean("storages",Storages.class);
-        Storages storagesTwoRef=context.getBean("storages",Storages.class);
-
+        Storages storagesOneRef=context.getBean(Storages.class);
+        Storages storagesTwoRef=context.getBean(Storages.class);
         Assert.assertTrue(storagesOneRef==storagesTwoRef);
     }
 }
