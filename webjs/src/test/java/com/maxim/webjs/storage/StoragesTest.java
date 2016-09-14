@@ -2,6 +2,7 @@ package com.maxim.webjs.storage;
 
 import com.maxim.manager.Friend;
 import com.maxim.manager.User;
+import com.maxim.webjs.service.AppSpringContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -13,8 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class StoragesTest {
     @Test
     public void getStoragesSpringIoC() throws Exception {
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext("spring_storages.xml");
+        ApplicationContext context= AppSpringContext.getInstance();
 
         Storages storages=context.getBean(Storages.class);
         Storage<User> userStorage=storages.getUsersStorage();
@@ -27,8 +27,7 @@ public class StoragesTest {
 
     @Test
     public void storagesSingletonSpringIoC() throws Exception {
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext("spring_storages.xml");
+        ApplicationContext context = AppSpringContext.getInstance();
 
         Storages storagesOneRef=context.getBean(Storages.class);
         Storages storagesTwoRef=context.getBean(Storages.class);

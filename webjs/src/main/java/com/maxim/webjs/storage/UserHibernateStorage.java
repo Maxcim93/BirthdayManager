@@ -12,7 +12,6 @@ import java.util.*;
 /**
  * Created by Максим on 29.08.2016.
  */
-@Repository
 public class UserHibernateStorage implements Storage<User>{
 
     private final SessionFactory factory;
